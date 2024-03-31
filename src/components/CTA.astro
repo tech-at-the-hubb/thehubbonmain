@@ -1,15 +1,27 @@
 ---
+import { contentfulClient } from "../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
 import Section from "./Section.astro";
+
+interface Home {
+  contentTypeId: "home";
+  fields: {
+    cta: EntryFieldTypes.RichText;
+  };
+}
+
+const home = await contentfulClient.getEntry<Home>("3V7dAsgvkJyOT6WoySbt4f");
 ---
 
 <Section classNames={["CTA"]}>
   <div class="grid grid__full--subgrid">
     <div class="grid grid__half">
-      <p class="typography__alpha">
-        <b> We&rsquo;re actively fundraising—please donate today! </b>
-        <br />
-        Program updates coming soon
-      </p>
+      <div
+        class="typography__alpha"
+        set:html={documentToHtmlString(home.fields.cta)}
+      />
     </div>
     <div class="grid grid__half">
       <a

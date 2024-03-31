@@ -1,28 +1,34 @@
 ---
+import { contentfulClient } from "../lib/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import type { EntryFieldTypes } from "contentful";
+
 import Section from "./Section.astro";
+
+interface Home {
+  contentTypeId: "home";
+  fields: {
+    footerLeft: EntryFieldTypes.RichText;
+    footerRight: EntryFieldTypes.RichText;
+  };
+}
+const home = await contentfulClient.getEntry<Home>("3V7dAsgvkJyOT6WoySbt4f");
 ---
 
 <Section classNames={["footer"]}>
   <div class="grid grid__full--subgrid">
     <div class="grid grid__half">
-      <p class="typography__alpha">
-        The Hubb will operate out of the Outsiders office at
-        <br />
-        <b>
-          905 Main Street <br />
-          Margaretville, NY 12455
-        </b>
-      </p>
+      <div
+        class="typography__alpha"
+        set:html={documentToHtmlString(home.fields.footerLeft)}
+      />
 
-      <p class="typography__alpha">
-        To contact The Hubb directly please email
-        <a
-          href="mailto:info@thehubbonmain.org"
-          target="_blank"
-          class="typography__alpha typography--link color--white"
-          >info@thehubbonmain.org</a
-        >
-      </p>
+      <a
+        class="typography__alpha"
+        href="https://mailchi.mp/9e695de79495/hubb-newsletter-signup-form"
+        target="_blank">Subscribe to email updates</a
+      >
+
       <div class="social-icons">
         <a
           href="https://www.facebook.com/profile.php?id=61550649696448"
@@ -32,23 +38,12 @@ import Section from "./Section.astro";
           ><img src="insta.svg" /></a
         >
       </div>
-      <br />
     </div>
     <div class="grid grid__half">
-      <p class="typography__alpha">
-        There are
-        <b> NO STAFF </b>
-        regularly working this location.
-      </p>
-      <p class="typography__alpha">
-        <b>
-          BY APPOINTMENT ONLY. <br />
-          PLEASE NO WALK INS.
-        </b>
-      </p>
-      <p class="typography__alpha">
-        Appointments can be scheduled directly with the agency you wish to see.
-      </p>
+      <div
+        class="typography__alpha"
+        set:html={documentToHtmlString(home.fields.footerRight)}
+      />
     </div>
   </div>
 </Section>
