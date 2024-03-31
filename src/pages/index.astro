@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+import CTA from "../components/CTA.astro";
+import Tiles from "../components/Tiles.astro";
+import Section from "../components/Section.astro";
+---
+
+<Layout title="The Hubb—Helping us be better">
+  <div class="bodyWrapper">
+    <CTA />
+    <!-- HERO ----------------------------------------------------------------->
+    <Section classNames={["hero"]}>
+      <div class="hero-inner">
+        <p class="typography__hero">
+          The mission of The Hubb is to create a central location to further
+          increase accessibility to community programs.
+        </p>
+        <div class="grid grid__two-thirds quote">
+          <p class="typography__alpha typography--light color--blue6">
+            <i>
+              &ldquo;In rural counties, access to social services usually
+              requires visits to the social services office located in the
+              county seat. For those living in that town or village, there may
+              not be much of a barrier, but for those living in other areas of
+              the county, lack of public transportation and the distances
+              involved can make receiving social services more difficult.&rdquo;
+            </i>
+          </p>
+          <a
+            class="typography__alpha typography--link color--blue6"
+            href="https://www.osc.state.ny.us/press/releases/2023/09/dinapoli-urges-focus-addressing-rural-challenges"
+            target="blank"
+            ><b> — DiNapoli Urges Focus on Addressing Rural Challenges </b>
+          </a>
+        </div>
+      </div>
+    </Section>
+    <!-- FUNDING NOTE --------------------------------------------------------->
+    <Section classNames={[]}>
+      <p class="typography__alpha color--neutral8">
+        This project is being funded in part through a matching grant awarded by
+        <a
+          class="typography__alpha typography--link color--neutral8"
+          href="https://theoconnorfoundation.org/"
+          target="blank"
+          ><b> The A. Lindsay & Olive B. O&rsquo;Connor Foundation </b>
+        </a>
+        to The Hubb in partnership with the
+        <a
+          class="typography__alpha typography--link color--neutral8"
+          href="https://www.markproject.org/"
+          target="blank"
+          ><b> M-ARK Project </b>
+        </a>
+        .
+      </p>
+    </Section>
+    <Tiles />
+    <Section classNames={[]}>
+      <p class="typography__delta color--neutral8">
+        The HUBB is operating under the fiscal sponsorship of the MARK project,
+        a 501c3 not-for-profit organization. Donations made to the HUBB are
+        deductible to the full extent of the law. The HUBB is also supported by
+        the O'Connor Foundation and the Community Foundation of South Central
+        New York.
+      </p>
+    </Section>
+  </div>
+
+  <style>
+    .bodyWrapper {
+      width: 100vw;
+      justify-items: center;
+      align-content: center;
+    }
+
+    .hero-inner {
+      width: 100%;
+      display: grid;
+      row-gap: 48px;
+    }
+    .hero-inner .typography__hero {
+      grid-column: 1 / span 6;
+    }
+    .typography__hero {
+      font-family: "Merriweather", sans;
+      font-size: var(--font-size-xxl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-blue6);
+    }
+
+    .quote {
+      width: calc(100% - 24px);
+      padding-left: 16px;
+      border-left: 8px solid var(--color-blue6);
+    }
+
+    /* .section--news {
+      background-color: var(--color-white);
+      padding: 40px 24px;
+    }
+
+    .section--funding-note {
+      background-color: var(--color-white);
+      padding: 40px 24px 0 24px;
+    } */
+
+    @media (max-width: 840px) {
+      .hero-inner {
+        row-gap: 24px;
+      }
+      .typography__hero {
+        font-size: var(--font-size-lg);
+      }
+    }
+  </style>
+</Layout>
