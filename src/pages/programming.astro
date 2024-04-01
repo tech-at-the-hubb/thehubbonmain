@@ -1,0 +1,94 @@
+---
+import { contentfulClient } from "../lib/contentful";
+import type { EntryFieldTypes } from "contentful";
+import { isAfter, format, getMonth } from "date-fns";
+
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import CTA from "../components/CTA.astro";
+
+import Program from "../components/Program.astro";
+
+interface Program {
+  contentTypeId: "program";
+  fields: {
+    agency: EntryFieldTypes.Text;
+    date: EntryFieldTypes.Date;
+    visibleDate: EntryFieldTypes.Text;
+    representative: EntryFieldTypes.Text;
+    description: EntryFieldTypes.Text;
+    contact: EntryFieldTypes.Text;
+  };
+}
+
+const entries = await contentfulClient.getEntries<Program>({
+  content_type: "program",
+});
+
+const upcomingPrograms = entries.items.filter(({ fields }) =>
+  isAfter(fields.date, new Date())
+);
+const upcomingProgramsByMonth = upcomingPrograms.reduce<{
+  [key: string]: any[];
+}>((acc, program) => {
+  const month = format(new Date(program.fields.date), "y-M-01");
+  acc[month] ??= [];
+  acc[month].push(program.fields);
+  return acc;
+}, {});
+
+const upcomingProgramsByMonthDisplay = Object.keys(upcomingProgramsByMonth)
+  .sort((a, b) => (isAfter(a, b) ? 1 : -1))
+  .map((month) => ({
+    month: format(month, "MMMM"),
+    programs: upcomingProgramsByMonth[month].sort((a, b) =>
+      isAfter(a.date, b.date) ? 1 : -1
+    ),
+  }));
+---
+
+<Layout title="Programming | The Hubb">
+  <CTA />
+  <Section classNames={[]}>
+    <h1 class="title">Upcoming Programming</h1>
+    {
+      upcomingProgramsByMonthDisplay.map(({ month, programs }) => (
+        <>
+          <div class="month">
+            <h2 class="typography__charlie color--white">{month}</h2>
+          </div>
+          <div class="programs-wrapper">
+            {programs.map((program) => (
+              <Program
+                agency={program.agency}
+                date={program.visibleDate}
+                representative={program.representative}
+                description={program.description}
+                contact={program.contact}
+              />
+            ))}
+          </div>
+        </>
+      ))
+    }
+  </Section>
+</Layout>
+
+<style>
+  .title {
+    font-family: "Merriweather", sans;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-blue8);
+  }
+  .month {
+    width: calc(100% - 32px);
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: var(--color-blue8);
+  }
+
+  .programs-wrapper {
+    column-count: 2;
+  }
+</style>

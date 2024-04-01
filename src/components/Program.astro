@@ -1,0 +1,37 @@
+---
+interface Props {
+  agency: string;
+  date: string;
+  representative: string;
+  description: string;
+  contact: string;
+}
+
+const { agency, date, representative, description, contact } = Astro.props;
+---
+
+<div class="grid__half program-wrapper">
+  <p class="typography__charlie color--blue8">{agency}</p>
+  <p class="typography__echo typography--caps color--blue8"><b>{date}</b></p>
+  <p class="typography__alpha typography--light color--blue8">
+    {representative}
+  </p>
+  <p class="typography__alpha typography--light color--neutral8">
+    {description}
+  </p>
+  <p class="typography__alpha color--neutral8">
+    {contact}
+  </p>
+</div>
+<style>
+  .program-wrapper {
+    display: grid;
+    gap: 8px;
+
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    background-color: var(--color-neutral2);
+    break-inside: avoid-column;
+  }
+</style>

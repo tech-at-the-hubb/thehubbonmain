@@ -4,6 +4,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import type { EntryFieldTypes } from "contentful";
 
 import Section from "./Section.astro";
+import { Image } from "astro:assets";
 
 interface Home {
   contentTypeId: "home";
@@ -19,12 +20,16 @@ const home = await contentfulClient.getEntry<Home>("3V7dAsgvkJyOT6WoySbt4f");
   <div class="grid grid__full--subgrid">
     <div class="grid grid__half">
       <div
-        class="typography__alpha"
+        class="typography__echo"
         set:html={documentToHtmlString(home.fields.footerLeft)}
       />
+      <p class="typography__echo">
+        To contact The Hubb directly please email
+        <a href="mailto:info@thehubbonmain.org">info@thehubbonmain.org</a>
+      </p>
 
       <a
-        class="typography__alpha"
+        class="typography__echo"
         href="https://mailchi.mp/9e695de79495/hubb-newsletter-signup-form"
         target="_blank">Subscribe to email updates</a
       >
@@ -32,16 +37,16 @@ const home = await contentfulClient.getEntry<Home>("3V7dAsgvkJyOT6WoySbt4f");
       <div class="social-icons">
         <a
           href="https://www.facebook.com/profile.php?id=61550649696448"
-          target="_blank"><img src="fb.svg" /></a
+          target="_blank"><img src="fb.svg" alt="Facebook logo" /></a
         >
         <a href="https://www.instagram.com/thehubbonmain/" target="_blank"
-          ><img src="insta.svg" /></a
+          ><img src="insta.svg" alt="Instagram logo" /></a
         >
       </div>
     </div>
     <div class="grid grid__half">
       <div
-        class="typography__alpha"
+        class="typography__echo"
         set:html={documentToHtmlString(home.fields.footerRight)}
       />
     </div>
