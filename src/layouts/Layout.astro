@@ -26,7 +26,19 @@ import Footer from "../components/Footer.astro";
     </style>
 
     <!-- mailchimp -->
-    <!-- <script id="mcjs">!function (c, h, i, m, p) { m = c.createElement(h), p = c.getElementsByTagName(h)[0], m.async = 1, m.src = i, p.parentNode.insertBefore(m, p) }(document, "script", "https://chimpstatic.com/mcjs-connected/js/users/4f3fe2befd0e4e257c9ce1a21/e0c6c3286872f5731947b0f8a.js");</script> -->
+    <script id="mcjs">
+      !(function (c, h, i, m, p) {
+        (m = c.createElement(h)),
+          (p = c.getElementsByTagName(h)[0]),
+          (m.async = 1),
+          (m.src = i),
+          p.parentNode.insertBefore(m, p);
+      })(
+        document,
+        "script",
+        "https://chimpstatic.com/mcjs-connected/js/users/4f3fe2befd0e4e257c9ce1a21/e0c6c3286872f5731947b0f8a.js"
+      );
+    </script>
   </head>
   <body>
     <Header />
