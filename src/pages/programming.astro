@@ -1,7 +1,7 @@
 ---
 import { contentfulClient } from "../lib/contentful";
 import type { EntryFieldTypes } from "contentful";
-import { isAfter, format, getMonth } from "date-fns";
+import { isAfter, format, getMonth, sub } from "date-fns";
 
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
@@ -26,7 +26,7 @@ const entries = await contentfulClient.getEntries<Program>({
 });
 
 const upcomingPrograms = entries.items.filter(({ fields }) =>
-  isAfter(fields.date, new Date())
+  isAfter(fields.date, sub(new Date(), { days: 1 }))
 );
 const upcomingProgramsByMonth = upcomingPrograms.reduce<{
   [key: string]: any[];
