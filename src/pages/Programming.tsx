@@ -69,7 +69,7 @@ export const Programming = () => {
       <Header />
       <CTA field={fields?.cta} />
       <Section classNames={[]}>
-        <h1 className="title">Upcoming Programming</h1>
+        <h3 className="page-title">Upcoming Programming</h3>
         {upcomingProgramsByMonthDisplay.map(({ month, programs }) => (
           <>
             <div className="month">
