@@ -1,0 +1,21 @@
+.title {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue8);
+}
+.month {
+  width: calc(100% - 32px);
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: var(--color-blue8);
+}
+
+.programs-wrapper {
+  column-count: 2;
+}
+@media (max-width: 840px) {
+  .programs-wrapper {
+    column-count: 1;
+  }
+}
