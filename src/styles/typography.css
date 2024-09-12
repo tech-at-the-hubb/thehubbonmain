@@ -1,0 +1,73 @@
+/* general ------------------------------------------------------------------ */
+a {
+  border-bottom: 2px solid;
+  padding-bottom: 1px;
+  margin-bottom: -2.5px;
+  cursor: pointer;
+  text-decoration: none;
+  width: max-content;
+  color: inherit;
+}
+a:hover {
+  filter: brightness(125%);
+}
+b {
+  font-weight: var(--font-weight-bold);
+}
+.typography--light {
+  font-weight: var(--font-weight-light);
+}
+
+.typography--caps {
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+}
+/* font combos -------------------------------------------------------------- */
+.typography__alpha {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-md);
+}
+
+.typography__alpha--light {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
+}
+
+.typography__beta {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-lg);
+}
+
+.typography__charlie {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-lg);
+}
+
+.typography__delta {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-smd);
+}
+
+.typography__echo {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 840px) {
+  .typography__alpha {
+    font-size: var(--font-size-sm);
+  }
+
+  .typography__beta {
+    font-size: var(--font-size-md);
+  }
+
+  .typography__charlie {
+    font-size: var(--font-size-md);
+  }
+
+  .typography__delta {
+    font-size: var(--font-size-sm);
+  }
+}
