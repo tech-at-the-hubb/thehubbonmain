@@ -1,0 +1,10 @@
+.program-wrapper {
+  display: grid;
+  gap: 8px;
+
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: var(--color-neutral2);
+  break-inside: avoid-column;
+}

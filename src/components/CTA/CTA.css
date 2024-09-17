@@ -1,0 +1,23 @@
+.button {
+  all: unset;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 40px;
+  background-color: var(--color-white);
+  width: max-content;
+  border-radius: 4px;
+  color: var(--color-blue8);
+  justify-self: end;
+}
+
+.button:hover {
+  background-color: var(--color-blue4);
+  cursor: pointer;
+}
+
+@media (max-width: 840px) {
+  .button {
+    justify-self: unset;
+  }
+}

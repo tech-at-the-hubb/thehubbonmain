@@ -1,0 +1,20 @@
+.tile {
+  width: calc(100% - 16px);
+  grid-column: span 1;
+  height: calc(140px - 16px);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+}
+@media (max-width: 840px) {
+  .tile {
+    height: calc(100px - 16px);
+  }
+}
+
+.span2 {
+  grid-column: span 2;
+}
