@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import type { Entry, FieldsType } from "contentful";
 import { contentfulClient } from "../lib/contentful";
-import { format, isAfter, sub } from "date-fns";
+import { format, isAfter, parse, sub } from "date-fns";
 
 import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
@@ -49,7 +49,7 @@ export const Programming = () => {
   const upcomingProgramsByMonth = upcomingPrograms.reduce<{
     [key: string]: any[];
   }>((acc, program) => {
-    const month = format(new Date(program.fields.date), "y-M-01");
+    const month = format(new Date(program.fields.date), "MMM yyy");
     acc[month] ??= [];
     acc[month].push(program.fields);
     return acc;
@@ -57,12 +57,14 @@ export const Programming = () => {
 
   const upcomingProgramsByMonthDisplay = Object.keys(upcomingProgramsByMonth)
     .sort((a, b) => (isAfter(a, b) ? 1 : -1))
-    .map((month) => ({
-      month: format(month, "MMMM"),
-      programs: upcomingProgramsByMonth[month].sort((a, b) =>
-        isAfter(a.date, b.date) ? 1 : -1
-      ),
-    }));
+    .map((month) => {
+      return {
+        month: format(new Date(`01-${month}`), "MMMM"),
+        programs: upcomingProgramsByMonth[month].sort((a, b) =>
+          isAfter(a.date, b.date) ? 1 : -1
+        ),
+      };
+    });
 
   return (
     <div>
