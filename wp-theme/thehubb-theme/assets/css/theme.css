@@ -1,0 +1,440 @@
+/* ============================================================
+   CSS Variables (from App.css)
+   ============================================================ */
+:root {
+  --color-blue8: #080d54;
+  --color-blue6: #3139aa;
+  --color-blue4: #c6d2e7;
+  --color-blue2: #eaeef6;
+  --color-orange10: #a34100;
+  --color-orange8: #f76900;
+  --color-orange6: #ff9e57;
+  --color-orange4: #fbd9c0;
+  --color-orange2: #fff3eb;
+  --color-neutral8: #615a4c;
+  --color-neutral6: #a1957d;
+  --color-neutral4: #f4ead7;
+  --color-neutral2: #faf5ea;
+  --color-black: #1e1e1e;
+  --color-white: #ffffff;
+
+  --font-size-xxl: 32px;
+  --font-size-lg: 22px;
+  --font-size-md: 18px;
+  --font-size-smd: 16px;
+  --font-size-sm: 14px;
+
+  --font-weight-bold: 700;
+  --font-weight-regular: 400;
+  --font-weight-light: 300;
+}
+
+/* ============================================================
+   Base resets
+   ============================================================ */
+body {
+  position: relative;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p,
+a {
+  margin: 0;
+  line-height: 1.4;
+  font-weight: normal;
+}
+
+/* ============================================================
+   Section (layout wrapper — mirrors the Section React component)
+   ============================================================ */
+.section {
+  width: calc(100vw - 48px);
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  background-color: white;
+  padding: 24px;
+}
+
+.section--CTA {
+  background-color: var(--color-blue8);
+  color: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.section--hero {
+  padding: 64px 24px 80px 24px;
+  background-color: var(--color-neutral4);
+}
+
+.section--tiles {
+  padding: 16px 24px;
+}
+
+.section--footer {
+  background-color: var(--color-blue8);
+  color: var(--color-white);
+}
+
+@media (max-width: 840px) {
+  .section--hero {
+    padding: 32px 24px 40px 24px;
+  }
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.title-wrapper {
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 0;
+  align-content: end;
+  height: 100px;
+  margin: 0;
+}
+
+.links-wrapper {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 16px;
+  grid-column: 4 / span 3;
+  justify-content: end;
+  align-self: end;
+}
+
+.links-wrapper > a {
+  color: black;
+}
+
+.links-wrapper > a:hover {
+  color: var(--color-blue6);
+}
+
+.site-title {
+  font-family: "Rubik", sans-serif;
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-orange8);
+  margin: 0;
+}
+
+.site-subtitle {
+  font-family: "Rubik", sans-serif;
+  font-size: 24px;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.logo {
+  position: fixed;
+  top: 24px;
+  z-index: 10;
+  grid-column: 1 / span 1;
+  border: 0;
+}
+
+.logo > img {
+  width: 100px;
+  height: 100px;
+}
+
+@media (max-width: 840px) {
+  .title-wrapper {
+    height: unset;
+  }
+
+  .links-wrapper {
+    grid-column: 1 / span 3;
+    justify-content: start;
+  }
+
+  .logo > img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .site-title {
+    font-size: var(--font-size-md);
+  }
+
+  .site-subtitle {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.button {
+  all: unset;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 40px;
+  background-color: var(--color-white);
+  width: max-content;
+  border-radius: 4px;
+  color: var(--color-blue8);
+  justify-self: end;
+  border-bottom: none;
+}
+
+.button:hover {
+  background-color: var(--color-blue4);
+  cursor: pointer;
+  filter: none;
+}
+
+@media (max-width: 840px) {
+  .button {
+    justify-self: unset;
+  }
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.social-icons {
+  display: flex;
+  gap: 16px;
+  height: 30px;
+}
+
+.social-icons > a {
+  border: 0;
+}
+
+.social-icons > a > img {
+  object-fit: contain;
+  height: 30px;
+}
+
+/* ============================================================
+   Home page — hero
+   ============================================================ */
+.hero-inner {
+  width: 100%;
+  display: grid;
+  row-gap: 48px;
+}
+
+.hero-inner .typography__hero {
+  grid-column: 1 / span 6;
+}
+
+.typography__hero {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue6);
+}
+
+.quote {
+  width: calc(100% - 24px);
+  padding-left: 16px;
+  border-left: 8px solid var(--color-blue6);
+}
+
+@media (max-width: 840px) {
+  .hero-inner {
+    row-gap: 24px;
+  }
+
+  .typography__hero {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ============================================================
+   Home page — tiles
+   ============================================================ */
+.tile-wrapper {
+  grid-template-columns: repeat(6, 1fr);
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  gap: 16px;
+}
+
+.tile {
+  width: calc(100% - 16px);
+  grid-column: span 1;
+  height: calc(140px - 16px);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.tile.span2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 840px) {
+  .tile-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .tile {
+    height: calc(100px - 16px);
+  }
+}
+
+/* ============================================================
+   Programming page
+   ============================================================ */
+.page-title {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue8);
+}
+
+.programs-wrapper {
+  column-count: 2;
+}
+
+@media (max-width: 840px) {
+  .programs-wrapper {
+    column-count: 1;
+  }
+}
+
+/* ============================================================
+   Program card
+   ============================================================ */
+.program-wrapper {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: var(--color-neutral2);
+  break-inside: avoid-column;
+}
+
+/* ============================================================
+   Blog (archive / home / single)
+   ============================================================ */
+.blog-listing {
+  display: grid;
+  gap: 32px;
+}
+
+.blog-post-card {
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: var(--color-neutral2);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.blog-post-card:hover {
+  filter: brightness(97%);
+}
+
+.blog-post-card .post-title {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue8);
+}
+
+.blog-post-card .post-meta {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral6);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.blog-post-card .post-excerpt {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-md);
+  color: var(--color-neutral8);
+}
+
+.blog-post-card .read-more {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--color-blue6);
+  font-weight: var(--font-weight-bold);
+  border-bottom: 2px solid var(--color-blue6);
+  width: max-content;
+}
+
+/* Single post */
+.single-post-header {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.single-post-title {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue8);
+}
+
+.single-post-meta {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral6);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.single-post-content {
+  font-family: "Merriweather", sans;
+  font-size: var(--font-size-smd);
+  color: var(--color-neutral8);
+  line-height: 1.8;
+}
+
+.single-post-content p {
+  margin-bottom: 1.2em;
+}
+
+.single-post-content h2,
+.single-post-content h3 {
+  font-family: "Rubik", sans-serif;
+  color: var(--color-blue8);
+  margin-bottom: 0.6em;
+  margin-top: 1.6em;
+}
+
+.back-to-blog {
+  font-family: "Rubik", sans-serif;
+  font-size: var(--font-size-sm);
+  color: var(--color-blue6);
+  border-bottom: 2px solid var(--color-blue6);
+  width: max-content;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+/* ============================================================
+   WordPress admin bar offset
+   ============================================================ */
+.admin-bar .section--CTA {
+  top: 32px;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .section--CTA {
+    top: 46px;
+  }
+}
