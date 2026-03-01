@@ -28,8 +28,8 @@
                 <a class="typography__beta typography--link color--black" href="<?php echo esc_url( home_url( '/programming' ) ); ?>">
                     <b>Programming</b>
                 </a>
-                <a class="typography__beta typography--link color--black" href="<?php echo esc_url( home_url( '/blog' ) ); ?>">
-                    <b>Blog</b>
+                <a class="typography__beta typography--link color--black" href="<?php echo esc_url( home_url( '/resources' ) ); ?>">
+                    <b>Resources</b>
                 </a>
             </nav>
         </header>

@@ -15,7 +15,7 @@ get_template_part( 'template-parts/cta' );
 
 <section class="section">
     <div class="grid grid__fullplus">
-        <h2 class="page-title">Blog</h2>
+        <h2 class="page-title">Resources</h2>
 
         <?php if ( have_posts() ) : ?>
             <div class="blog-listing">
@@ -23,8 +23,10 @@ get_template_part( 'template-parts/cta' );
                     <a class="blog-post-card" href="<?php the_permalink(); ?>">
                         <p class="post-meta">
                             <?php echo esc_html( get_the_date() ); ?>
-                            <?php if ( get_the_author() ) : ?>
-                                &middot; <?php the_author(); ?>
+                            <?php
+                            $attribution = function_exists( 'get_field' ) ? get_field( 'attribution' ) : '';
+                            if ( $attribution ) : ?>
+                                &middot; <?php echo esc_html( $attribution ); ?>
                             <?php endif; ?>
                         </p>
                         <h3 class="post-title"><?php the_title(); ?></h3>

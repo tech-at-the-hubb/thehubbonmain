@@ -20,7 +20,7 @@ Install [Local by WP Engine](https://localwp.com/) and create a site called `the
 
 ### Required plugins
 
-- **Advanced Custom Fields (ACF)** — powers all structured content fields (free version works)
+- **Advanced Custom Fields (ACF)** — powers Home Page and Program fields (free version works; Site Options use a native WP settings page instead of ACF Pro)
 - **Classic Editor** (optional) — simpler editing experience for non-developers
 
 ### Template hierarchy

@@ -80,22 +80,71 @@ function thehubb_register_program_cpt() {
 add_action( 'init', 'thehubb_register_program_cpt' );
 
 /* ============================================================
-   ACF: Options page (global fields — CTA + footer)
+   Site Options — native WordPress settings page
+   (replaces ACF Pro options page; works with free ACF)
    ============================================================ */
-function thehubb_register_options_page() {
-    if ( ! function_exists( 'acf_add_options_page' ) ) {
+function thehubb_add_options_page() {
+    add_menu_page(
+        'Site Options',
+        'Site Options',
+        'edit_posts',
+        'thehubb-options',
+        'thehubb_options_page_html',
+        'dashicons-admin-settings',
+        60
+    );
+}
+add_action( 'admin_menu', 'thehubb_add_options_page' );
+
+function thehubb_register_settings() {
+    register_setting( 'thehubb_options_group', 'thehubb_cta',          'wp_kses_post' );
+    register_setting( 'thehubb_options_group', 'thehubb_footer_left',  'wp_kses_post' );
+    register_setting( 'thehubb_options_group', 'thehubb_footer_right', 'wp_kses_post' );
+}
+add_action( 'admin_init', 'thehubb_register_settings' );
+
+function thehubb_options_page_html() {
+    if ( ! current_user_can( 'edit_posts' ) ) {
         return;
     }
+    ?>
+    <div class="wrap">
+        <h1>Site Options</h1>
+        <form method="post" action="options.php">
+            <?php settings_fields( 'thehubb_options_group' ); ?>
 
-    acf_add_options_page( [
-        'page_title' => 'Site Options',
-        'menu_title' => 'Site Options',
-        'menu_slug'  => 'thehubb-options',
-        'capability' => 'edit_posts',
-        'redirect'   => false,
-    ] );
+            <h2>CTA Text</h2>
+            <p class="description">Short call-to-action shown in the sticky banner next to the Donate button. Appears on every page.</p>
+            <?php wp_editor( get_option( 'thehubb_cta', '' ), 'thehubb_cta', [
+                'textarea_name' => 'thehubb_cta',
+                'media_buttons' => false,
+                'textarea_rows' => 3,
+                'teeny'         => true,
+            ] ); ?>
+
+            <h2 style="margin-top: 24px;">Footer — Left Column</h2>
+            <p class="description">Content for the left column of the footer (address, hours, etc.).</p>
+            <?php wp_editor( get_option( 'thehubb_footer_left', '' ), 'thehubb_footer_left', [
+                'textarea_name' => 'thehubb_footer_left',
+                'media_buttons' => false,
+                'textarea_rows' => 6,
+                'teeny'         => true,
+            ] ); ?>
+
+            <h2 style="margin-top: 24px;">Footer — Right Column</h2>
+            <p class="description">Content for the right column of the footer.</p>
+            <?php wp_editor( get_option( 'thehubb_footer_right', '' ), 'thehubb_footer_right', [
+                'textarea_name' => 'thehubb_footer_right',
+                'media_buttons' => false,
+                'textarea_rows' => 6,
+                'teeny'         => true,
+            ] ); ?>
+
+            <?php submit_button( 'Save Options' ); ?>
+        </form>
+    </div>
+    <?php
 }
-add_action( 'acf/init', 'thehubb_register_options_page' );
 
 /* ============================================================
    ACF: Field group definitions (version-controlled via PHP)
@@ -106,58 +155,7 @@ function thehubb_register_acf_field_groups() {
     }
 
     /* ----------------------------------------------------------
-       1. Global Options — CTA + Footer (shown on Options page)
-       ---------------------------------------------------------- */
-    acf_add_local_field_group( [
-        'key'    => 'group_thehubb_options',
-        'title'  => 'Global Options',
-        'fields' => [
-            [
-                'key'          => 'field_cta',
-                'label'        => 'CTA Text',
-                'name'         => 'cta',
-                'type'         => 'wysiwyg',
-                'instructions' => 'Short call-to-action text shown in the sticky banner next to the Donate button. Appears on every page.',
-                'toolbar'      => 'basic',
-                'media_upload' => 0,
-            ],
-            [
-                'key'          => 'field_footer_left',
-                'label'        => 'Footer — Left Column',
-                'name'         => 'footer_left',
-                'type'         => 'wysiwyg',
-                'instructions' => 'Content for the left column of the footer (address, hours, etc.).',
-                'toolbar'      => 'basic',
-                'media_upload' => 0,
-            ],
-            [
-                'key'          => 'field_footer_right',
-                'label'        => 'Footer — Right Column',
-                'name'         => 'footer_right',
-                'type'         => 'wysiwyg',
-                'instructions' => 'Content for the right column of the footer.',
-                'toolbar'      => 'basic',
-                'media_upload' => 0,
-            ],
-        ],
-        'location' => [
-            [
-                [
-                    'param'    => 'options_page',
-                    'operator' => '==',
-                    'value'    => 'thehubb-options',
-                ],
-            ],
-        ],
-        'menu_order'            => 0,
-        'position'              => 'normal',
-        'style'                 => 'default',
-        'label_placement'       => 'top',
-        'instruction_placement' => 'label',
-    ] );
-
-    /* ----------------------------------------------------------
-       2. Home Page fields (attached to the page set as front page)
+       1. Home Page fields (attached to the page set as front page)
        ---------------------------------------------------------- */
     acf_add_local_field_group( [
         'key'    => 'group_thehubb_home',
@@ -211,6 +209,38 @@ function thehubb_register_acf_field_groups() {
         ],
         'menu_order'            => 0,
         'position'              => 'normal',
+        'style'                 => 'default',
+        'label_placement'       => 'top',
+        'instruction_placement' => 'label',
+    ] );
+
+    /* ----------------------------------------------------------
+       2b. Post attribution field
+       ---------------------------------------------------------- */
+    acf_add_local_field_group( [
+        'key'    => 'group_thehubb_post',
+        'title'  => 'Post Details',
+        'fields' => [
+            [
+                'key'          => 'field_post_attribution',
+                'label'        => 'Attribution',
+                'name'         => 'attribution',
+                'type'         => 'text',
+                'instructions' => 'Optional — name or organisation to credit (e.g. "Jane Smith" or "Community Partners"). Leave blank to show no attribution.',
+                'required'     => 0,
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param'    => 'post_type',
+                    'operator' => '==',
+                    'value'    => 'post',
+                ],
+            ],
+        ],
+        'menu_order'            => 0,
+        'position'              => 'side',
         'style'                 => 'default',
         'label_placement'       => 'top',
         'instruction_placement' => 'label',
@@ -284,8 +314,5 @@ add_action( 'acf/init', 'thehubb_register_acf_field_groups' );
    Helper: get ACF option field (with graceful fallback)
    ============================================================ */
 function thehubb_get_option( string $field_name ): string {
-    if ( function_exists( 'get_field' ) ) {
-        return (string) get_field( $field_name, 'option' );
-    }
-    return '';
+    return (string) get_option( 'thehubb_' . $field_name, '' );
 }

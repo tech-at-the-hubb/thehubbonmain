@@ -10,8 +10,8 @@ get_template_part( 'template-parts/cta' );
 <section class="section">
     <div class="grid grid__fullplus">
 
-        <a class="back-to-blog" href="<?php echo esc_url( home_url( '/blog' ) ); ?>">
-            &larr; Back to Blog
+        <a class="back-to-blog" href="<?php echo esc_url( home_url( '/resources' ) ); ?>">
+            &larr; Back to Resources
         </a>
 
         <?php while ( have_posts() ) : the_post(); ?>
@@ -20,8 +20,10 @@ get_template_part( 'template-parts/cta' );
                 <header class="single-post-header">
                     <p class="single-post-meta">
                         <?php echo esc_html( get_the_date() ); ?>
-                        <?php if ( get_the_author() ) : ?>
-                            &middot; <?php the_author(); ?>
+                        <?php
+                        $attribution = function_exists( 'get_field' ) ? get_field( 'attribution' ) : '';
+                        if ( $attribution ) : ?>
+                            &middot; <?php echo esc_html( $attribution ); ?>
                         <?php endif; ?>
                     </p>
                     <h2 class="single-post-title"><?php the_title(); ?></h2>
